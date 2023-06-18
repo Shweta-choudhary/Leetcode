@@ -46,7 +46,7 @@ struct Node
 class Solution
 {
     public:
-    Node* reverse(Node *head)
+    Node * reverse(Node *head)
     {
         Node *prev=NULL;
         Node *next;
@@ -67,34 +67,37 @@ class Solution
         // Your Code here
         // return head of list after adding one
         Node *newhead=reverse(head);
-        
         Node *curr=newhead;
         
-        while(curr!=NULL)
+        while(curr)
         {
             if(curr->data+1<10)
             {
-                curr->data=curr->data+1;
+                curr->data+=1;
                 break;
             }
             
             else
             {
                 curr->data=0;
-                if(curr->next!=NULL)
-                curr=curr->next;
+                
+                if(curr->next)
+                {
+                    curr=curr->next;
+                }
                 
                 else
                 {
-                    Node *end=new Node(1);
-                    curr->next=end;
+                    Node *newNode=new Node(1);
+                    curr->next=newNode;
                     break;
                 }
             }
         }
         
-        Node *newhead2=reverse(newhead);
-        return newhead2;
+        Node *newhead1=reverse(newhead);
+        return newhead1;
+    
     }
 };
 
