@@ -13,15 +13,12 @@ public:
 	    // code here
 	    sort(arr,arr+n);
 	    
-	    int m=arr[n-1];
-	    int i=n-1;
+	    int res=arr[n-1];
 	    
-	    while(i>=0)
+	    for(int i=n-2;i>=0;i--)
 	    {
-	        if(arr[i]!=m)
+	        if(arr[i]<res)
 	        return arr[i];
-	        
-	        i--;
 	    }
 	    
 	    return -1;
