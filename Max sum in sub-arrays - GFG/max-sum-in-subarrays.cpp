@@ -12,8 +12,9 @@ class Solution{
     {
         // Your code goes here
         long long ans=INT_MIN;
+        // sort(arr,arr+N);
         
-        for(long long i=0;i<N-1;i++)
+        for(int i=0;i<N-1;i++)
         {
             ans=max(ans,arr[i]+arr[i+1]);
         }
