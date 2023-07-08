@@ -27,7 +27,6 @@ class Solution{
         v.push_back(it);
         
         sort(v.begin(),v.end());
-        
         return v;
     }
 };
