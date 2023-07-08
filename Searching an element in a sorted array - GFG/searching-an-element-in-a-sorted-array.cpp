@@ -10,21 +10,20 @@ class Solution{
     // arr: input array
     // N: size of array
     // K: element to be searche
-    int searchInSorted(int arr[], int N, int K) 
+    int searchInSorted(int arr[], int N, int k) 
     { 
     
        // Your code here
-       int low=0;
-       int high=N-1;
+       int low=0,high=N-1;
        
        while(low<=high)
        {
            int mid=low+(high-low)/2;
            
-           if(arr[mid]==K)
+           if(arr[mid]==k)
            return 1;
            
-           if(arr[mid]<K)
+           if(arr[mid]<k)
            low=mid+1;
            
            else
