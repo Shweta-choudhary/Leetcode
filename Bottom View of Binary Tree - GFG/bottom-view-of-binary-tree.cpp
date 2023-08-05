@@ -97,9 +97,10 @@ class Solution {
   public:
     vector <int> bottomView(Node *root) {
         // Your Code Here
-        vector<int>ans;
+        vector<int>res;
         if(root==NULL)
-        return ans;
+        return res;
+        
         map<int,int>mp;
         queue<pair<Node*,int>>q;
         q.push({root,0});
@@ -107,9 +108,9 @@ class Solution {
         while(q.empty()==0)
         {
             auto it=q.front();
-            q.pop();
-            Node * node=it.first;
+            Node* node=it.first;
             int level=it.second;
+            q.pop();
             
             mp[level]=node->data;
             
@@ -121,12 +122,11 @@ class Solution {
         }
         
         for(auto it:mp)
-        ans.push_back(it.second);
+        res.push_back(it.second);
         
-        return ans;
+        return res;
+        
     }
-    
-    
 };
 
 //{ Driver Code Starts.
