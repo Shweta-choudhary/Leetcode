@@ -11,7 +11,7 @@ class Solution
     int knapSack(int W, int wt[], int val[], int n) 
     { 
        // Your code here
-      int t[n+1][W+1];
+       int t[n+1][W+1];
        
        for(int i=0;i<n+1;i++)
        {
