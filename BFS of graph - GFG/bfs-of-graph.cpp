@@ -9,17 +9,16 @@ class Solution {
     vector<int> bfsOfGraph(int V, vector<int> adj[]) {
         // Code here
         vector<int>res;
-        int vis[V]={0};
-        vis[0]=1;
         queue<int>q;
         q.push(0);
-        res.push_back(0);
+        int vis[V]={0};
+        vis[0]=1;
         
         while(q.empty()==0)
         {
             int node=q.front();
             q.pop();
-        
+            res.push_back(node);
             
             for(auto it:adj[node])
             {
@@ -27,11 +26,9 @@ class Solution {
                 {
                     vis[it]=1;
                     q.push(it);
-                    res.push_back(it);
                 }
             }
         }
-        
         return res;
     }
 };
