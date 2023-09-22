@@ -11,11 +11,12 @@ class Solution
         // Code here
         int n=grid.size();
         int m=grid[0].size();
-
+        
+        int vis[n][m]={0};
+        
         queue<pair<pair<int,int>,int>>q;
-        int vis[n][m];
-        int cntfresh=0;
-
+        int cntFresh=0;
+        
         for(int i=0;i<n;i++)
         {
             for(int j=0;j<m;j++)
@@ -23,47 +24,46 @@ class Solution
                 if(grid[i][j]==2)
                 {
                     q.push({{i,j},0});
-                    vis[i][j]=2;
+                    vis[i][j]=1;
                 }
-
+                
                 else
                 vis[i][j]=0;
-
+                
                 if(grid[i][j]==1)
-                cntfresh++;
+                cntFresh++;
             }
         }
-
+        
         int tm=0;
         int drow[]={-1,0,1,0};
         int dcol[]={0,1,0,-1};
         int cnt=0;
-
+        
         while(q.empty()==0)
         {
-            int r=q.front().first.first;
-            int c=q.front().first.second;
+            int nrow=q.front().first.first;
+            int ncol=q.front().first.second;
             int t=q.front().second;
-            tm=max(tm,t);
             q.pop();
-
+            tm=max(tm,t);
+            
             for(int i=0;i<4;i++)
             {
-                int nrow=r+drow[i];
-                int ncol=c+dcol[i];
-
-                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && vis[nrow][ncol]==0 && grid[nrow][ncol]==1)
-                {
-                    q.push({{nrow,ncol},t+1});
-                    vis[nrow][ncol]=2;
+                int currow=nrow+drow[i];
+                int curcol=ncol+dcol[i];
+                
+                if(currow>=0 && currow<n && curcol>=0 && curcol<m && vis[currow][curcol]==0 && grid[currow][curcol]==1){
+                    q.push({{currow,curcol},t+1});
+                    vis[currow][curcol]++;
                     cnt++;
                 }
             }
         }
-
-        if(cnt!=cntfresh)
+        
+        if(cnt!=cntFresh)
         return -1;
-
+        
         return tm;
     }
 };
