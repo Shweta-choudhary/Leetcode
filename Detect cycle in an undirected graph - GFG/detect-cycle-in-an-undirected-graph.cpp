@@ -4,17 +4,19 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
-  
+  public:
     // Function to detect cycle in an undirected graph.
-    bool checkForCycle(int node,int parent,vector<int>&vis,vector<int>adj[])
+    
+    bool dfs(int i,vector<int>adj[],int parent,int vis[])
     {
-        vis[node]=1;
         
-        for(auto it:adj[node])
+        vis[i]=1;
+        
+        for(auto it:adj[i])
         {
             if(vis[it]==0)
             {
-                if(checkForCycle(it,node,vis,adj))
+                if(dfs(it,adj,i,vis))
                 return true;
             }
             
@@ -22,20 +24,20 @@ class Solution {
             return true;
         }
         
+        
         return false;
+        
     }
     
-  public:
-    // Function to detect cycle in an undirected graph.
     bool isCycle(int V, vector<int> adj[]) {
-        // Code here
-        vector<int>vis(V+1,0);
+        // Code heree
+        int vis[V]={0};
         
         for(int i=0;i<V;i++)
         {
-            if(!vis[i])
+            if(vis[i]==0)
             {
-                if(checkForCycle(i,-1,vis,adj))
+                if(dfs(i,adj,-1,vis))
                 return true;
             }
         }
