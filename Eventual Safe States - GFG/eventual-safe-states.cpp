@@ -10,57 +10,52 @@ using namespace std;
 
 class Solution {
   public:
-    bool dfs(int i,vector<int> adj[],vector<int>& vis,vector<int> & path,vector<int>& check)
-    {
-        vis[i]=1;
-        path[i]=1;
-        check[i]=0;
-        
-        for(auto it:adj[i])
-        {
-            if(vis[it]==0)
-            {
-                if(dfs(it,adj,vis,path,check)==true)
-                {
-                    check[it]=0;
-                    return true;
-                }
-            }
-            
-            else if(path[it]==1)
-            {
-                check[it]=0;
-                return true;
-            }
-        }
-        
-        
-        check[i]=1;
-        path[i]=0;
-        return false;
-    }
-  
     vector<int> eventualSafeNodes(int V, vector<int> adj[]) {
         // code here
-        vector<int>vis(V,0);
-        vector<int>path(V,0);
-        vector<int>check(V,0);
-        vector<int>res;
+        vector<int>adjrev[V];
         
         for(int i=0;i<V;i++)
         {
-            if(vis[i]==0)
+            for(auto it:adj[i])
             {
-                dfs(i,adj,vis,path,check);
+                adjrev[it].push_back(i);
             }
         }
         
+        vector<int>indegree(V,0);
+        
         for(int i=0;i<V;i++)
         {
-            if(check[i]==1)
-            res.push_back(i);
+            for(auto it:adjrev[i])
+            indegree[it]++;
         }
         
+        queue<int>q;
+        
+        for(int i=0;i<V;i++)
+        {
+            if(indegree[i]==0)
+            q.push(i);
+        }
+        
+        vector<int>res;
+        
+        while(q.empty()==0)
+        {
+            int node=q.front();
+            q.pop();
+            res.push_back(node);
+            
+            for(auto it:adjrev[node])
+            {
+                indegree[it]--;
+                
+                if(indegree[it]==0)
+                q.push(it);
+            }
+        }
+        
+        sort(res.begin(),res.end());
         return res;
     }
 };
