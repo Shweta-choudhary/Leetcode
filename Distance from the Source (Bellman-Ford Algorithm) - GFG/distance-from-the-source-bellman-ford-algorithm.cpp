@@ -30,7 +30,7 @@ class Solution {
             }
         }
         
-        //relaxation for negative wt
+        //relaxation for negative wt as the value will reduce further
         for(auto it:edges)
         {
             int u=it[0];
