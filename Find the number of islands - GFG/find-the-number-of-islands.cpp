@@ -6,7 +6,7 @@ using namespace std;
 class Solution {
   public:
     // Function to find the number of islands.
-    void dfs(vector<vector<char>>& grid,int i,int j)
+    void dfs(vector<vector<char>>&grid,int i,int j)
     {
         int n=grid.size();
         int m=grid[0].size();
@@ -27,13 +27,12 @@ class Solution {
         dfs(grid,i,j-1);
         dfs(grid,i-1,j-1);
         
-        
     }
+    
     
     int numIslands(vector<vector<char>>& grid) {
         // Code here
         int res=0;
-        
         int n=grid.size();
         int m=grid[0].size();
         
