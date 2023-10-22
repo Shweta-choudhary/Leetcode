@@ -9,13 +9,12 @@ class Solution
     //Function to find minimum time required to rot all oranges. 
     int orangesRotting(vector<vector<int>>& grid) {
         // Code here
+        int fresh=0;
+        queue<pair<pair<int,int>,int>>q;
+        
         int n=grid.size();
         int m=grid[0].size();
-        
-        int vis[n][m]={0};
-        
-        queue<pair<pair<int,int>,int>>q;
-        int cntFresh=0;
+        vector<vector<int>>vis(n,vector<int>(m,0));
         
         for(int i=0;i<n;i++)
         {
@@ -27,44 +26,45 @@ class Solution
                     vis[i][j]=1;
                 }
                 
-                else
-                vis[i][j]=0;
-                
                 if(grid[i][j]==1)
-                cntFresh++;
+                fresh++;
             }
         }
         
-        int tm=0;
         int drow[]={-1,0,1,0};
         int dcol[]={0,1,0,-1};
-        int cnt=0;
+        int finaltime=0;
+        int rotten=0;
         
         while(q.empty()==0)
         {
-            int nrow=q.front().first.first;
-            int ncol=q.front().first.second;
-            int t=q.front().second;
+            int row=q.front().first.first;
+            int col=q.front().first.second;
+            int time=q.front().second;
+            finaltime=max(finaltime,time);
             q.pop();
-            tm=max(tm,t);
             
             for(int i=0;i<4;i++)
             {
-                int currow=nrow+drow[i];
-                int curcol=ncol+dcol[i];
+                int r=row+drow[i];
+                int c=col+dcol[i];
                 
-                if(currow>=0 && currow<n && curcol>=0 && curcol<m && vis[currow][curcol]==0 && grid[currow][curcol]==1){
-                    q.push({{currow,curcol},t+1});
-                    vis[currow][curcol]++;
-                    cnt++;
+                if(r>=0 && r<n && c>=0 && c<m && vis[r][c]==0 && grid[r][c]==1)
+                {
+                    q.push({{r,c},time+1});
+                    vis[r][c]=1;
+                    rotten++;
+                    
                 }
             }
         }
         
-        if(cnt!=cntFresh)
+        if(rotten!=fresh)
         return -1;
         
-        return tm;
+        return finaltime;
+        
+        
     }
 };
 
