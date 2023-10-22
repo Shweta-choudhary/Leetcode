@@ -9,53 +9,43 @@ using namespace std;
 
 class Solution{
 public:
-    vector<vector<char>> fill(int n, int m, vector<vector<char>> mat)
-    {
-        // code here
-        vector<vector<char>>res(n,vector<char>(m,'X'));
-        queue<pair<int,int>>q;
-        
-        for(int i=0;i<n;i++)
-        {
-            for(int j=0;j<m;j++)
-            {
-                if(i==0 || i==n-1 || j==0 || j==m-1)
-                {
-                    if(mat[i][j]=='O')
-                    {
-                    res[i][j]='O';
-                    q.push({i,j});
-                    }
+   vector<vector<char>> fill(int n, int m, vector<vector<char>> mat) {
+    vector<vector<char>> res(n, vector<char>(m, 'X'));
+    queue<pair<int, int>> q;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (i == 0 || i == n - 1 || j == 0 || j == m - 1) {
+                if (mat[i][j] == 'O') {
+                    q.push({i, j});
+                    res[i][j] = 'O';
                 }
             }
         }
-        
-        int drow[]={-1,0,1,0};
-        int dcol[]={0,1,0,-1};
-        
-        while(q.empty()==0)
-        {
-            int nrow=q.front().first;
-            int ncol=q.front().second;
-            q.pop();
-            
-            for(int i=0;i<4;i++)
-            {
-                int r=nrow+drow[i];
-                int c=ncol+dcol[i];
-                
-                if(r>=0 && r<n && c>=0 && c<m && mat[r][c]=='O' && res[r][c]=='X')
-            {
-                res[r][c]='O';
-                q.push({r,c});
-            }
-            }
-            
-            
-        }
-        
-        return res;
     }
+
+    int drow[] = {-1, 0, 1, 0};
+    int dcol[] = {0, 1, 0, -1};
+
+    while (!q.empty()) {
+        int row = q.front().first;
+        int col = q.front().second;
+        q.pop();
+
+        for (int i = 0; i < 4; i++) {
+            int r = row + drow[i];
+            int c = col + dcol[i];
+
+            if (r >= 0 && r < n && c >= 0 && c < m && res[r][c] == 'X' && mat[r][c] == 'O') {
+                res[r][c] = 'O';
+                q.push({r, c});
+            }
+        }
+    }
+
+    return res;
+}
+
 };
 
 //{ Driver Code Starts.
