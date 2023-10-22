@@ -14,7 +14,10 @@ class Solution {
         // Code here
         int n=grid.size();
         int m=grid[0].size();
-        vector<vector<int>>ans(n,vector<int>(m,0));
+        int original=0;
+        
+        vector<vector<int>>res(n,vector<int>(m,0));
+        
         queue<pair<int,int>>q;
         
         for(int i=0;i<n;i++)
@@ -25,10 +28,13 @@ class Solution {
                 {
                     if(grid[i][j]==1)
                     {
-                        ans[i][j]=1;
-                        q.push({i,j});
+                        res[i][j]=1;
+                    q.push({i,j});
                     }
                 }
+                
+                if(grid[i][j]==1)
+                original++;
             }
         }
         
@@ -37,19 +43,19 @@ class Solution {
         
         while(q.empty()==0)
         {
-            int r=q.front().first;
-            int c=q.front().second;
+            int row=q.front().first;
+            int col=q.front().second;
             q.pop();
             
             for(int i=0;i<4;i++)
             {
-                int nrow=r+drow[i];
-                int ncol=c+dcol[i];
+                int r=row+drow[i];
+                int c=col+dcol[i];
                 
-                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && grid[nrow][ncol]==1 && ans[nrow][ncol]==0)
+                if(r>=0 && r<n && c>=0 && c<m && res[r][c]==0 && grid[r][c]==1)
                 {
-                    ans[nrow][ncol]=1;
-                    q.push({nrow,ncol});
+                    res[r][c]=1;
+                    q.push({r,c});
                 }
             }
         }
@@ -60,12 +66,12 @@ class Solution {
         {
             for(int j=0;j<m;j++)
             {
-                if(grid[i][j]==1 && ans[i][j]==0)
+                if(res[i][j]==1)
                 count++;
             }
         }
         
-        return count;
+        return original-count;
     }
 };
 
