@@ -1,7 +1,7 @@
 # Rotten Oranges
 ## Medium
 <div class="problems_problem_content__Xm_eO"><p><span style="font-size: 18px;">Given a grid&nbsp;of dimension <strong>nxm</strong>&nbsp;where each cell in the grid&nbsp;can have values 0, 1 or 2 which has the following meaning:</span><br><span style="font-size: 18px;"><strong>0 </strong>: Empty cell </span><br><span style="font-size: 18px;"><strong>1</strong> : Cells have fresh oranges </span><br><span style="font-size: 18px;"><strong>2</strong> : Cells have rotten oranges </span></p>
-<p><span style="font-size: 18px;">We have to determine what is the minimum time required to rot all oranges. A rotten orange at index [i,j] can rot other fresh orange at indexes [i-1,j], [i+1,j], [i,j-1], [i,j+1] (<strong>up</strong>, <strong>down</strong>, <strong>left</strong> and <strong>right</strong>) in unit time.&nbsp;</span><br>&nbsp;</p>
+<p><span style="font-size: 18px;">We have to determine what is the earliest time after which all the oranges are rotten. A rotten orange at index [i,j] can rot other fresh orange at indexes [i-1,j], [i+1,j], [i,j-1], [i,j+1] (<strong>up</strong>, <strong>down</strong>, <strong>left</strong> and <strong>right</strong>) in unit time.&nbsp;</span><br>&nbsp;</p>
 <p><span style="font-size: 18px;"><strong>Example 1:</strong></span></p>
 <pre><span style="font-size: 18px;"><strong>Input: </strong>grid = {{0,1,2},{0,1,2},{2,1,1}}
 <strong>Output: </strong>1
