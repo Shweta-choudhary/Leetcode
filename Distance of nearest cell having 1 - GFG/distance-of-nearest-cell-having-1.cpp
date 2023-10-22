@@ -12,13 +12,9 @@ class Solution
 	    // Code here
 	    int n=grid.size();
 	    int m=grid[0].size();
-	    vector<int>adj[n];
 	    
-	    
-	    vector<vector<int>>distance(n,vector<int>(m,INT_MAX));
-	    
+	    vector<vector<int>>res(n,vector<int>(m,INT_MAX));
 	    queue<pair<pair<int,int>,int>>q;
-	   
 	    
 	    for(int i=0;i<n;i++)
 	    {
@@ -27,10 +23,8 @@ class Solution
 	            if(grid[i][j]==1)
 	            {
 	                q.push({{i,j},0});
-	                distance[i][j]=0;
+	                res[i][j]=0;
 	            }
-	            
-	            
 	        }
 	    }
 	    
@@ -39,30 +33,27 @@ class Solution
 	    
 	    while(q.empty()==0)
 	    {
-	        int r=q.front().first.first;
-	        int c=q.front().first.second;
-	        int pos=q.front().second;
+	        int row=q.front().first.first;
+	        int col=q.front().first.second;
+	        int dist=q.front().second;
+	        
 	        q.pop();
 	        
 	        for(int i=0;i<4;i++)
 	        {
-	            int nrow=r+drow[i];
-	            int ncol=c+dcol[i];
+	            int r=row+drow[i];
+	            int c=col+dcol[i];
 	            
-	            if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && grid[nrow][ncol]==0 && pos+1<distance[nrow][ncol])
+	            if(r>=0 && r<n && c>=0 && c<m && dist+1<res[r][c])
 	            {
-	            distance[nrow][ncol]=pos+1;
-	            q.push({{nrow,ncol},pos+1});
+	                res[r][c]=dist+1;
+	                q.push({{r,c},dist+1});
 	            }
 	        }
-	        
-	        
-	        
 	    }
 	    
-	    return distance;
-	    
-	    
+	    return res;
+	        
 	}
 };
 
