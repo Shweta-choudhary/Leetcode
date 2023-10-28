@@ -6,49 +6,50 @@ using namespace std;
 class Solution {
   public:
     // Function to find the number of islands.
-    void dfs(vector<vector<char>>&grid,int i,int j)
-    {
-        int n=grid.size();
-        int m=grid[0].size();
-        
-        if(i<0 || i>=n || j<0 || j>=m)
+    void dfs(vector<vector<char>>& grid, vector<vector<int>>& vis, int i, int j) {
+    int n = grid.size();
+    int m = grid[0].size();
+
+    if (i < 0 || i >= n || j < 0 || j >= m || vis[i][j] == 1 || grid[i][j] == '0')
         return;
-        
-        if(grid[i][j]!='1')
-        return;
-        
-        grid[i][j]='2';
-        dfs(grid,i-1,j);
-        dfs(grid,i-1,j+1);
-        dfs(grid,i,j+1);
-        dfs(grid,i+1,j+1);
-        dfs(grid,i+1,j);
-        dfs(grid,i+1,j-1);
-        dfs(grid,i,j-1);
-        dfs(grid,i-1,j-1);
-        
+
+    vis[i][j] = 1;
+
+    // Array of direction changes for simplicity
+    vector<int> dirX = {0, 0, 1, -1, 1, -1, 1, -1};
+    vector<int> dirY = {1, -1, 0, 0, 1, -1, -1, 1};
+
+    for (int k = 0; k < 8; ++k) {
+        int x = i + dirX[k];
+        int y = j + dirY[k];
+        dfs(grid, vis, x, y);
     }
-    
+}
+
     
     int numIslands(vector<vector<char>>& grid) {
         // Code here
         int res=0;
+        
         int n=grid.size();
         int m=grid[0].size();
+        
+        vector<vector<int>>vis(n,vector<int>(m,0));
         
         for(int i=0;i<n;i++)
         {
             for(int j=0;j<m;j++)
             {
-                if(grid[i][j]=='1')
+                if(grid[i][j]=='1' && vis[i][j]==0)
                 {
                     res++;
-                    dfs(grid,i,j);
+                    dfs(grid,vis,i,j);
                 }
             }
         }
         
         return res;
+        
     }
 };
 
