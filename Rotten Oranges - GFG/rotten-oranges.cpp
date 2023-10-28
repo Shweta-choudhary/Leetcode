@@ -10,51 +10,46 @@ class Solution
     int orangesRotting(vector<vector<int>>& grid) {
         // Code here
         int fresh=0;
-        queue<pair<pair<int,int>,int>>q;
-        
         int n=grid.size();
         int m=grid[0].size();
-        vector<vector<int>>vis(n,vector<int>(m,0));
+        queue<pair<int,pair<int,int>>>q;
         
         for(int i=0;i<n;i++)
         {
             for(int j=0;j<m;j++)
             {
                 if(grid[i][j]==2)
-                {
-                    q.push({{i,j},0});
-                    vis[i][j]=1;
-                }
+                q.push({0,{i,j}});
                 
                 if(grid[i][j]==1)
                 fresh++;
             }
         }
         
-        int drow[]={-1,0,1,0};
-        int dcol[]={0,1,0,-1};
-        int finaltime=0;
         int rotten=0;
+        int time=0;
         
         while(q.empty()==0)
         {
-            int row=q.front().first.first;
-            int col=q.front().first.second;
-            int time=q.front().second;
-            finaltime=max(finaltime,time);
+            int t=q.front().first;
+            int row=q.front().second.first;
+            int col=q.front().second.second;
             q.pop();
+            time=max(time,t);
+            
+            int drow[]={-1,0,1,0};
+            int dcol[]={0,1,0,-1};
             
             for(int i=0;i<4;i++)
             {
                 int r=row+drow[i];
                 int c=col+dcol[i];
                 
-                if(r>=0 && r<n && c>=0 && c<m && vis[r][c]==0 && grid[r][c]==1)
+                if(r>=0 && r<n && c>=0 && c<m && grid[r][c]==1)
                 {
-                    q.push({{r,c},time+1});
-                    vis[r][c]=1;
                     rotten++;
-                    
+                    grid[r][c]=2;
+                    q.push({t+1,{r,c}});
                 }
             }
         }
@@ -62,9 +57,7 @@ class Solution
         if(rotten!=fresh)
         return -1;
         
-        return finaltime;
-        
-        
+        return time;
     }
 };
 
