@@ -5,22 +5,20 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
 public:
-    void dfs(vector<vector<int>>& image,int sr,int sc,int newColor,int original)
+    void bfs(vector<vector<int>>& image,int sr,int sc,int newColor,int original)
     {
         int n=image.size();
         int m=image[0].size();
         
-        if(sr<0 || sr>=n || sc<0 || sc>=m)
-        return;
-        
-        if(image[sr][sc]!=original)
+        if(sr<0 || sr>=n || sc<0 ||sc>=m || image[sr][sc]!=original)
         return;
         
         image[sr][sc]=newColor;
-        dfs(image,sr-1,sc,newColor,original);
-        dfs(image,sr,sc+1,newColor,original);
-        dfs(image,sr+1,sc,newColor,original);
-        dfs(image,sr,sc-1,newColor,original);
+        
+        bfs(image,sr-1,sc,newColor,original);
+        bfs(image,sr,sc+1,newColor,original);
+        bfs(image,sr+1,sc,newColor,original);
+        bfs(image,sr,sc-1,newColor,original);
     }
 
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
@@ -28,7 +26,7 @@ public:
         if(image[sr][sc]==newColor)
         return image;
         
-        dfs(image,sr,sc,newColor,image[sr][sc]);
+        bfs(image,sr,sc,newColor,image[sr][sc]);
         
         return image;
     }
