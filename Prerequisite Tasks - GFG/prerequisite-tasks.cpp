@@ -7,12 +7,11 @@ class Solution {
 public:
 	bool isPossible(int N,int P, vector<pair<int, int> >& prerequisites) {
 	    // Code here
-	    int n=prerequisites.size();
 	    vector<int>adj[N];
 	    
-	    for(int i=0;i<n;i++)
+	    for(int i=0;i<P;i++)
 	    {
-	        adj[prerequisites[i].first].push_back(prerequisites[i].second);
+	        adj[prerequisites[i].second].push_back(prerequisites[i].first);
 	    }
 	    
 	    vector<int>indegree(N,0);
@@ -31,13 +30,13 @@ public:
 	        q.push(i);
 	    }
 	    
-	    vector<int>v;
+	    vector<int>res;
 	    
 	    while(q.empty()==0)
 	    {
 	        int node=q.front();
 	        q.pop();
-	        v.push_back(node);
+	        res.push_back(node);
 	        
 	        for(auto it:adj[node])
 	        {
@@ -48,7 +47,7 @@ public:
 	        }
 	    }
 	    
-	    if(v.size()==N)
+	    if(res.size()==N)
 	    return true;
 	    
 	    return false;
