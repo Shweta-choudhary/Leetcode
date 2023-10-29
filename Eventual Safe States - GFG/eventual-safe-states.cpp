@@ -10,7 +10,7 @@ using namespace std;
 
 class Solution {
   public:
-    bool dfs(vector<int> adj[],vector<int>& vis,vector<int>& path,vector<int>& check,int i)
+    bool dfs(vector<int> adj[],vector<int>& vis,vector<int> &path,vector<int>&check,int i)
     {
         vis[i]=1;
         path[i]=1;
@@ -23,16 +23,15 @@ class Solution {
                 if(dfs(adj,vis,path,check,it)==true)
                 {
                     check[it]=0;
-                    return true;
+                return true;
                 }
             }
             
             else if(path[it]==1)
             {
                 check[it]=0;
-                return true;
+            return true;
             }
-            
         }
         
         path[i]=0;
@@ -49,9 +48,7 @@ class Solution {
         for(int i=0;i<V;i++)
         {
             if(vis[i]==0)
-            {
-                dfs(adj,vis,path,check,i);
-            }
+            dfs(adj,vis,path,check,i);
         }
         
         vector<int>res;
