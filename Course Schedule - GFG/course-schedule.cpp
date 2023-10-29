@@ -54,12 +54,8 @@ class Solution
         if(res.size()==n)
         return res;
         
-      
-            vector<int>curr;
-            return curr;
-        
-        
-        
+        vector<int>curr;
+        return curr;
     }
 };
 
