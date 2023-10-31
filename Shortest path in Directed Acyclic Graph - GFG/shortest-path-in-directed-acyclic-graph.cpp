@@ -8,42 +8,69 @@ using namespace std;
 // User function Template for C++
 class Solution {
   public:
+    void toposort(int i,vector<pair<int,int>>adj[],int vis[],stack<int>& st)
+    {
+        vis[i]=1;
+        
+        for(auto it:adj[i])
+        {
+            int v=it.first;
+            
+            if(vis[v]==0)
+            toposort(v,adj,vis,st);
+        }
+        
+        st.push(i);
+    }
+  
      vector<int> shortestPath(int N,int M, vector<vector<int>>& edges){
         // code here
-        vector<int>dist(N ,INT_MAX);
-    //   creating a adj
-    vector<vector<pair<int,int>>>adj(N);
-    for(int i=0;i<edges.size();i++){
-        adj[edges[i][0]].push_back({edges[i][1] , edges[i][2]});
-    }
-    // done with adj
-    dist[0]=0;
-    queue<pair<int,int>>q;
-    q.push({0,0});
-    
-    while(!q.empty()){
-        int sz = q.size();
-        while(sz--){
-            int node = q.front().first;
-            int distance = q.front().second;
-            q.pop();
+        vector<pair<int,int>>adj[N];
+        
+        for(int i=0;i<M;i++)
+        {
+            adj[edges[i][0]].push_back({edges[i][1],edges[i][2]});
+        }
+        
+        int vis[N]={0};
+        
+        stack<int>st;
+        
+        for(int i=0;i<N;i++)
+        {
+            if(vis[i]==0)
+            toposort(i,adj,vis,st);
+        }
+        
+        vector<int>dist(N);
+        
+        for(int i=0;i<N;i++)
+        dist[i]=1e9;
+        
+        dist[0]=0;
+        
+        while(st.empty()==0)
+        {
+            int node=st.top();
+            st.pop();
             
-            // checking the neigbours
-            for(auto it: adj[node]){
-                int nei = it.first;
-                int price = it.second;
-                if(price+distance>=dist[nei])continue;
-                dist[nei]=price+distance;
-                q.push({nei , dist[nei]});
+            for(auto it:adj[node])
+            {
+                int v=it.first;
+                int wt=it.second;
+                
+                if(dist[node]+wt<dist[v])
+                dist[v]=dist[node]+wt;
             }
         }
-    }
-    for(int i=0;i<N;i++){
-        if(dist[i]==INT_MAX){
+        
+        for(int i=0;i<N;i++)
+        {
+            if(dist[i]==1e9)
             dist[i]=-1;
         }
-    }
-    return dist;
+        
+        return dist;
     }
 };
 
