@@ -12,8 +12,8 @@ public:
     vector<vector<char>> fill(int n, int m, vector<vector<char>> mat)
     {
         // code here
+        queue<pair<int,int>>q;
         vector<vector<char>>res(n,vector<char>(m,'X'));
-        queue<pair<int,int>>q;;
         
         for(int i=0;i<n;i++)
         {
@@ -23,7 +23,7 @@ public:
                 {
                     if(mat[i][j]=='O')
                     {
-                    res[i][j]='O';
+                        res[i][j]='O';
                     q.push({i,j});
                     }
                 }
