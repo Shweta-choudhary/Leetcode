@@ -8,29 +8,29 @@ using namespace std;
 
 class Solution {
   public:
-   void dfs(vector<int>adj[],int start,vector<int>&vis)
-   {
-       vis[start]=1;
-       
-       for(auto it:adj[start])
-       {
-           if(vis[it]==0)
-           dfs(adj,it,vis);
-       }
-   }
+    void dfs(int node,vector<int>& vis,vector<int>adj[])
+    {
+        vis[node]=1;
+        
+        for(auto it:adj[node])
+        {
+            if(vis[it]==0)
+            dfs(it,vis,adj);
+        }
+    }
   
-    int numProvinces(vector<vector<int>> adj, int V) {
+    int numProvinces(vector<vector<int>> adjv, int V) {
         // code here
-        vector<int>mat[V];
+        vector<int>adj[V];
         
         for(int i=0;i<V;i++)
         {
             for(int j=0;j<V;j++)
             {
-                if(adj[i][j]==1)
+                if(adjv[i][j]==1)
                 {
-                    mat[i].push_back(j);
-                    mat[j].push_back(i);
+                    adj[i].push_back(j);
+                    adj[j].push_back(i);
                 }
             }
         }
@@ -43,7 +43,7 @@ class Solution {
             if(vis[i]==0)
             {
                 res++;
-                dfs(mat,i,vis);
+                dfs(i,vis,adj);
             }
         }
         
