@@ -5,20 +5,21 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
 public:
-    void bfs(vector<vector<int>>& image,int sr,int sc,int newColor,int original)
+    void dfs(vector<vector<int>>& image,int i,int j,int newColor,int original,vector<vector<int>>& vis)
     {
         int n=image.size();
         int m=image[0].size();
         
-        if(sr<0 || sr>=n || sc<0 ||sc>=m || image[sr][sc]!=original)
+        if(i<0 || i>=n || j<0 || j>=m || vis[i][j]==1 || image[i][j]!=original)
         return;
         
-        image[sr][sc]=newColor;
+        vis[i][j]=1;
+        image[i][j]=newColor;
         
-        bfs(image,sr-1,sc,newColor,original);
-        bfs(image,sr,sc+1,newColor,original);
-        bfs(image,sr+1,sc,newColor,original);
-        bfs(image,sr,sc-1,newColor,original);
+        dfs(image,i-1,j,newColor,original,vis);
+        dfs(image,i,j+1,newColor,original,vis);
+        dfs(image,i+1,j,newColor,original,vis);
+        dfs(image,i,j-1,newColor,original,vis);
     }
 
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
@@ -26,9 +27,13 @@ public:
         if(image[sr][sc]==newColor)
         return image;
         
-        bfs(image,sr,sc,newColor,image[sr][sc]);
+        int n=image.size();
+        int m=image[0].size();
+        vector<vector<int>>vis(n,vector<int>(m,0));
         
-        return image;
+       dfs(image,sr,sc,newColor,image[sr][sc],vis);
+       
+       return image;
     }
 };
 
