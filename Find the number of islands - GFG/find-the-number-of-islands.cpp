@@ -6,36 +6,46 @@ using namespace std;
 class Solution {
   public:
     // Function to find the number of islands.
-    void dfs(int i,int j,vector<vector<char>>& grid,vector<vector<int>>& vis)
+    void bfs(vector<vector<char>>& grid,vector<vector<int>>& vis,int i,int j)
     {
         int n=grid.size();
         int m=grid[0].size();
         
-        if(i<0 || i>=n || j<0 || j>=m || grid[i][j]=='0' || vis[i][j]==1)
-        return;
-        
+        queue<pair<int,int>>q;
+        q.push({i,j});
         vis[i][j]=1;
         
-        dfs(i-1,j,grid,vis);
-        dfs(i-1,j+1,grid,vis);
-        dfs(i,j+1,grid,vis);
-        dfs(i+1,j+1,grid,vis);
-        dfs(i+1,j,grid,vis);
-        dfs(i+1,j-1,grid,vis);
-        dfs(i,j-1,grid,vis);
-        dfs(i-1,j-1,grid,vis);
+        int drow[]={-1,-1,0,1,1,1,0,-1};
+        int dcol[]={0,1,1,1,0,-1,-1,-1};
         
+        while(q.empty()==0)
+        {
+            int row=q.front().first;
+            int col=q.front().second;
+            q.pop();
+            
+            for(int i=0;i<8;i++)
+            {
+                int r=row+drow[i];
+                int c=col+dcol[i];
+                
+                
+                if(r>=0 && r<n && c>=0 && c<m && grid[r][c]=='1' && vis[r][c]==0)
+                {
+                    vis[r][c]=1;
+                    q.push({r,c});
+                }
+            }
+        }
     }
     
     int numIslands(vector<vector<char>>& grid) {
         // Code here
-        int res=0;
-        
         int n=grid.size();
         int m=grid[0].size();
         
         vector<vector<int>>vis(n,vector<int>(m,0));
-        
+        int res=0;
         
         for(int i=0;i<n;i++)
         {
@@ -43,8 +53,8 @@ class Solution {
             {
                 if(grid[i][j]=='1' && vis[i][j]==0)
                 {
+                    bfs(grid,vis,i,j);
                     res++;
-                    dfs(i,j,grid,vis);
                 }
             }
         }
