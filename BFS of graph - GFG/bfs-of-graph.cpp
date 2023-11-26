@@ -16,12 +16,11 @@ class Solution {
         
         while(q.empty()==0)
         {
-            int node= q.front();
+            int x=q.front();
             q.pop();
+            res.push_back(x);
             
-            res.push_back(node);
-            
-            for(auto it:adj[node])
+            for(auto it:adj[x])
             {
                 if(vis[it]==0)
                 {
