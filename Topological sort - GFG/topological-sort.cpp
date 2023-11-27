@@ -18,7 +18,8 @@ class Solution
 	        indegree[it]++;
 	    }
 	    
-	    queue<int>q;
+	      queue<int>q;
+	    vector<int>res;
 	    
 	    for(int i=0;i<V;i++)
 	    {
@@ -26,7 +27,7 @@ class Solution
 	        q.push(i);
 	    }
 	    
-	    vector<int>res;
+	  
 	    
 	    while(q.empty()==0)
 	    {
