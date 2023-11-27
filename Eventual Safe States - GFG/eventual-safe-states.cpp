@@ -10,11 +10,10 @@ using namespace std;
 
 class Solution {
   public:
-    bool dfs(vector<int> adj[],vector<int>& vis,vector<int> &path,vector<int>&check,int i)
+    bool dfs(vector<int>adj[],vector<int>& vis,vector<int>& path,vector<int>& check,int i)
     {
         vis[i]=1;
         path[i]=1;
-        check[i]=0;
         
         for(auto it:adj[i])
         {
@@ -23,19 +22,19 @@ class Solution {
                 if(dfs(adj,vis,path,check,it)==true)
                 {
                     check[it]=0;
-                return true;
+                    return true;
                 }
             }
             
             else if(path[it]==1)
             {
                 check[it]=0;
-            return true;
+                return true;
             }
         }
         
-        path[i]=0;
         check[i]=1;
+        path[i]=0;
         return false;
     }
   
