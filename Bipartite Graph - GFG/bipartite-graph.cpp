@@ -5,11 +5,11 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
 public:
-    bool bfs(vector<int>adj[],vector<int>&vis,int i)
+    bool bfs(vector<int>adj[],vector<int>& vis,int i)
     {
-        vis[i]=0;
         queue<int>q;
         q.push(i);
+        vis[i]=1;
         
         while(q.empty()==0)
         {
