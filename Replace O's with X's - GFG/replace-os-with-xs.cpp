@@ -12,8 +12,8 @@ public:
     vector<vector<char>> fill(int n, int m, vector<vector<char>> mat)
     {
         // code here
-        queue<pair<int,int>>q;
         vector<vector<char>>res(n,vector<char>(m,'X'));
+        queue<pair<int,int>>q;
         
         for(int i=0;i<n;i++)
         {
@@ -23,21 +23,22 @@ public:
                 {
                     if(mat[i][j]=='O')
                     {
-                        res[i][j]='O';
+                    res[i][j]='O';
                     q.push({i,j});
                     }
+                    
                 }
             }
         }
+        
+        int drow[]={-1,0,1,0};
+        int dcol[]={0,1,0,-1};
         
         while(q.empty()==0)
         {
             int row=q.front().first;
             int col=q.front().second;
             q.pop();
-            
-            int drow[]={-1,0,1,0};
-            int dcol[]={0,1,0,-1};
             
             for(int i=0;i<4;i++)
             {
