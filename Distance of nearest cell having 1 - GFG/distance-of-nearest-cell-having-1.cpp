@@ -12,9 +12,10 @@ class Solution
 	    // Code here
 	    int n=grid.size();
 	    int m=grid[0].size();
-	    queue<pair<pair<int,int>,int>>q;
 	    
 	    vector<vector<int>>res(n,vector<int>(m,INT_MAX));
+	    
+	    queue<pair<pair<int,int>,int>>q;
 	    
 	    for(int i=0;i<n;i++)
 	    {
@@ -28,26 +29,26 @@ class Solution
 	        }
 	    }
 	    
+	    int drow[]={-1,0,1,0};
+	    int dcol[]={0,1,0,-1};
+	    
 	    while(q.empty()==0)
 	    {
 	        int row=q.front().first.first;
 	        int col=q.front().first.second;
-	        int d=q.front().second;
+	        int dist=q.front().second;
 	        
 	        q.pop();
-	        
-	        int drow[]={-1,0,1,0};
-	        int dcol[]={0,1,0,-1};
 	        
 	        for(int i=0;i<4;i++)
 	        {
 	            int r=row+drow[i];
 	            int c=col+dcol[i];
 	            
-	            if(r>=0 && r<n && c>=0 && c<m && d+1<res[r][c])
+	            if(r>=0 && r<n && c>=0 && c<m && res[r][c]>dist+1)
 	            {
-	                res[r][c]=d+1;
-	                q.push({{r,c},d+1});
+	                res[r][c]=dist+1;
+	                q.push({{r,c},dist+1});
 	            }
 	        }
 	    }
