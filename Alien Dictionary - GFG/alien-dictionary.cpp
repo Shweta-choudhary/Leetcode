@@ -61,10 +61,8 @@ class Solution{
                 if(indegree[it]==0)
                 q.push(it);
             }
-        
-        
-        
         }
+        
         return res;
     }
 };
