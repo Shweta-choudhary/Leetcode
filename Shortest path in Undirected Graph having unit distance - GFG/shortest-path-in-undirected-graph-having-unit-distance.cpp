@@ -12,20 +12,16 @@ class Solution {
         // code here
         vector<int>adj[N];
         
-        for(int i=0;i<M;i++)
-        {
-            adj[edges[i][0]].push_back(edges[i][1]);
-            adj[edges[i][1]].push_back(edges[i][0]);
-        }
+       for(auto it:edges)
+       {
+           adj[it[0]].push_back(it[1]);
+           adj[it[1]].push_back(it[0]);
+       }
         
-        vector<int>dist(N);
-        
-        for(int i=0;i<N;i++)
-        dist[i]=1e9;
-        
-        dist[src]=0;
+        vector<int>dist(N,1e9);
         queue<int>q;
         q.push(src);
+        dist[src]=0;
         
         while(q.empty()==0)
         {
@@ -42,13 +38,15 @@ class Solution {
             }
         }
         
+        vector<int>ans(N,-1);
+        
         for(int i=0;i<N;i++)
         {
-            if(dist[i]==1e9)
-            dist[i]=-1;
+            if(dist[i]!=1e9)
+            ans[i]=dist[i];
         }
         
-        return dist;
+        return ans;
     }
 };
 
