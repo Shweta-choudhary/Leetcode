@@ -16,41 +16,38 @@ class Solution {
         int n=grid.size();
         int m=grid[0].size();
         
-        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>>pq;
-        pq.push({0,{source.first,source.second}});
-        
-        vector<vector<int>>vis(n,vector<int>(m,INT_MAX));
-        
-        vis[source.first][source.second]=0;
+        vector<vector<int>>dist(n,vector<int>(m,INT_MAX));
+        priority_queue<pair<pair<int,int>,int>,vector<pair<pair<int,int>,int>>,greater<pair<pair<int,int>,int>>>pq;
+        pq.push({{source.first,source.second},0});
+        dist[source.first][source.second]=0;
         
         int drow[]={-1,0,1,0};
         int dcol[]={0,1,0,-1};
         
         while(pq.empty()==0)
         {
-            auto it=pq.top();
+            int cr=pq.top().first.first;
+            int cc=pq.top().first.second;
+            int cd=pq.top().second;
             pq.pop();
-            int dist=it.first;
-            int row=it.second.first;
-            int col=it.second.second;
             
             for(int i=0;i<4;i++)
             {
-                int nrow=row+drow[i];
-                int ncol=col+dcol[i];
+                int r=cr+drow[i];
+                int c=cc+dcol[i];
                 
-                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && dist+1<vis[nrow][ncol] && grid[nrow][ncol]==1)
+                if(r>=0 && r<n && c>=0 && c<m && grid[r][c]==1 && cd+1<dist[r][c])
                 {
-                    vis[nrow][ncol]=dist+1;
-                    pq.push({vis[nrow][ncol],{nrow,ncol}});
+                    dist[r][c]=cd+1;
+                    pq.push({{r,c},cd+1});
                 }
             }
         }
         
-        if(vis[destination.first][destination.second]==INT_MAX)
+        if(dist[destination.first][destination.second]==INT_MAX)
         return -1;
         
-        return vis[destination.first][destination.second];
+        return dist[destination.first][destination.second];
     }
 };
 
