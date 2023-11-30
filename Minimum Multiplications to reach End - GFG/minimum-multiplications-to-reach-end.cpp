@@ -16,11 +16,10 @@ class Solution {
         return 0;
         
         priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
-        //steps,node
         pq.push({0,start});
-        vector<int>dist(100000,INT_MAX);
-        dist[start]=0;
+        vector<int>res(100000,INT_MAX);
         int mod=100000;
+        res[start]=0;
         
         while(pq.empty()==0)
         {
@@ -32,15 +31,18 @@ class Solution {
             {
                 int num=(node*it)%mod;
                 
-                if(step+1<dist[num])
+                if(step+1<res[num])
                 {
-                    dist[num]=step+1;
+                    res[num]=step+1;
+                    
+                    pq.push({step+1,num});
+                    
                     if(num==end)
                     return step+1;
-                    pq.push({step+1,num});
                 }
             }
         }
+        
         return -1;
     }
 };
