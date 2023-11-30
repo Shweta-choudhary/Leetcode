@@ -5,49 +5,50 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-   int CheapestFLight(int n, vector<vector<int>>& flights, int src, int dst, int K) {
-    vector<pair<int,int>> adj[n];
-
-    for (auto it : flights) {
-        adj[it[0]].push_back({it[1], it[2]});
-    }
-
-    priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> pq;
-    pq.push({0, {src, 0}});
-    vector<int> dist(n, INT_MAX);
-    dist[src] = 0;
-
-    while (!pq.empty()) {
-        int stop = pq.top().first;
-        int node = pq.top().second.first;
-        int distance = pq.top().second.second;
-        pq.pop();
-
-        // if (node == dst) {
-        //     return distance;
-        // }
-
-        if (stop > K) {
-            continue;
+    int CheapestFLight(int n, vector<vector<int>>& flights, int src, int dst, int K)  {
+        // Code here
+        vector<pair<int,int>>adj[n];
+        
+        for(auto it:flights)
+        {
+            adj[it[0]].push_back({it[1],it[2]});
         }
-
-        for (auto it : adj[node]) {
-            int node2 = it.first;
-            int distance2 = distance + it.second;
-
-            if (distance2 < dist[node2]) {
-                dist[node2] = distance2;
-                pq.push({stop + 1, {node2, distance2}});
+        
+        priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>>>pq;
+        pq.push({0,{src,0}});
+        vector<int>res(n,INT_MAX);
+        res[src]=0;
+        
+        while(pq.empty()==0)
+        {
+            int stop=pq.top().first;
+            int node=pq.top().second.first;
+            int dist=pq.top().second.second;
+            pq.pop();
+            
+            if(stop>K)
+            continue;
+            
+            for(auto it:adj[node])
+            {
+                int node1=it.first;
+                int dist1=it.second;
+                
+                int dist2=dist+dist1;
+                
+                if(dist2<res[node1])
+                {
+                    res[node1]=dist2;
+                    pq.push({stop+1,{node1,dist2}});
+                }
             }
         }
+        
+        if(res[dst]==INT_MAX)
+        return -1;
+        
+        return res[dst];
     }
-    
-    if(dist[dst]!=INT_MAX)
-    return dist[dst];
-
-    return -1;  // If destination is unreachable within K stops
-}
-
 };
 
 //{ Driver Code Starts.
